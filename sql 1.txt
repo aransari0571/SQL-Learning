@@ -1,0 +1,294 @@
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 20
+Server version: 8.0.43 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| nit                |
+| performance_schema |
+| sys                |
+| testdb             |
++--------------------+
+6 rows in set (0.01 sec)
+
+mysql> use nit;
+Database changed
+mysql> desc customers;
+ERROR 1146 (42S02): Table 'nit.customers' doesn't exist
+mysql> desc students;
+ERROR 1146 (42S02): Table 'nit.students' doesn't exist
+mysql> desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(30) | YES  |     | NULL    |       |
+| id      | int         | NO   | PRI | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
+| marks   | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student;
++------+----+---------+-------+
+| name | id | address | marks |
++------+----+---------+-------+
+| Raj  | 12 | hyd     |    78 |
++------+----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into student
+    -> values
+    -> ('Dolly',13,'bng',88);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> ('Kodi',14,'Mumbai',94);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''Kodi',14,'Mumbai',94)' at line 1
+mysql> ('Kodi',14,'Mumbai',94);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''Kodi',14,'Mumbai',94)' at line 1
+mysql> insert into student
+    -> values
+    -> ('Kodi',14,'Mumbai',94);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into student
+    -> values
+    -> ('Sahil',15,'Pune',90);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student
+    -> values
+    -> ('Prakash',16,'Delhi',88);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into student
+    -> values
+    -> ('Cathy',17,'hyd',89);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from student;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| Raj     | 12 | hyd     |    78 |
+| Dolly   | 13 | bng     |    88 |
+| Kodi    | 14 | Mumbai  |    94 |
+| Sahil   | 15 | Pune    |    90 |
+| Prakash | 16 | Delhi   |    88 |
+| Cathy   | 17 | hyd     |    89 |
++---------+----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select name from student;
++---------+
+| name    |
++---------+
+| Raj     |
+| Dolly   |
+| Kodi    |
+| Sahil   |
+| Prakash |
+| Cathy   |
++---------+
+6 rows in set (0.00 sec)
+
+mysql> select name , id from student;
++---------+----+
+| name    | id |
++---------+----+
+| Raj     | 12 |
+| Dolly   | 13 |
+| Kodi    | 14 |
+| Sahil   | 15 |
+| Prakash | 16 |
+| Cathy   | 17 |
++---------+----+
+6 rows in set (0.00 sec)
+
+mysql> select * from student where id = 12;
++------+----+---------+-------+
+| name | id | address | marks |
++------+----+---------+-------+
+| Raj  | 12 | hyd     |    78 |
++------+----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where id = 17;
++-------+----+---------+-------+
+| name  | id | address | marks |
++-------+----+---------+-------+
+| Cathy | 17 | hyd     |    89 |
++-------+----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| Raj     | 12 | hyd     |    78 |
+| Dolly   | 13 | bng     |    88 |
+| Kodi    | 14 | Mumbai  |    94 |
+| Sahil   | 15 | Pune    |    90 |
+| Prakash | 16 | Delhi   |    88 |
+| Cathy   | 17 | hyd     |    89 |
++---------+----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> update student set address = 'Chennai' where id = 17;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| Raj     | 12 | hyd     |    78 |
+| Dolly   | 13 | bng     |    88 |
+| Kodi    | 14 | Mumbai  |    94 |
+| Sahil   | 15 | Pune    |    90 |
+| Prakash | 16 | Delhi   |    88 |
+| Cathy   | 17 | Chennai |    89 |
++---------+----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> insert into values('Sam', 15, 'hyd',91);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'values('Sam', 15, 'hyd',91)' at line 1
+mysql> select * from student;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| Raj     | 12 | hyd     |    78 |
+| Dolly   | 13 | bng     |    88 |
+| Kodi    | 14 | Mumbai  |    94 |
+| Sahil   | 15 | Pune    |    90 |
+| Prakash | 16 | Delhi   |    88 |
+| Cathy   | 17 | Chennai |    89 |
++---------+----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table student add phoneNo int;
+Query OK, 0 rows affected (0.36 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++---------+----+---------+-------+---------+
+| name    | id | address | marks | phoneNo |
++---------+----+---------+-------+---------+
+| Raj     | 12 | hyd     |    78 |    NULL |
+| Dolly   | 13 | bng     |    88 |    NULL |
+| Kodi    | 14 | Mumbai  |    94 |    NULL |
+| Sahil   | 15 | Pune    |    90 |    NULL |
+| Prakash | 16 | Delhi   |    88 |    NULL |
+| Cathy   | 17 | Chennai |    89 |    NULL |
++---------+----+---------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> update student set phoneNo=123;
+Query OK, 6 rows affected (0.02 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+mysql> select * from student;
++---------+----+---------+-------+---------+
+| name    | id | address | marks | phoneNo |
++---------+----+---------+-------+---------+
+| Raj     | 12 | hyd     |    78 |     123 |
+| Dolly   | 13 | bng     |    88 |     123 |
+| Kodi    | 14 | Mumbai  |    94 |     123 |
+| Sahil   | 15 | Pune    |    90 |     123 |
+| Prakash | 16 | Delhi   |    88 |     123 |
+| Cathy   | 17 | Chennai |    89 |     123 |
++---------+----+---------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> update student set phoneNo=987 where id = 14;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++---------+----+---------+-------+---------+
+| name    | id | address | marks | phoneNo |
++---------+----+---------+-------+---------+
+| Raj     | 12 | hyd     |    78 |     123 |
+| Dolly   | 13 | bng     |    88 |     123 |
+| Kodi    | 14 | Mumbai  |    94 |     987 |
+| Sahil   | 15 | Pune    |    90 |     123 |
+| Prakash | 16 | Delhi   |    88 |     123 |
+| Cathy   | 17 | Chennai |    89 |     123 |
++---------+----+---------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(30) | YES  |     | NULL    |       |
+| id      | int         | NO   | PRI | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
+| marks   | int         | YES  |     | NULL    |       |
+| phoneNo | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table student modify column name varchar(60);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table student modify column address varchar(100);
+Query OK, 6 rows affected (0.24 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| name    | varchar(60)  | YES  |     | NULL    |       |
+| id      | int          | NO   | PRI | NULL    |       |
+| address | varchar(100) | YES  |     | NULL    |       |
+| marks   | int          | YES  |     | NULL    |       |
+| phoneNo | int          | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student;
++---------+----+---------+-------+---------+
+| name    | id | address | marks | phoneNo |
++---------+----+---------+-------+---------+
+| Raj     | 12 | hyd     |    78 |     123 |
+| Dolly   | 13 | bng     |    88 |     123 |
+| Kodi    | 14 | Mumbai  |    94 |     987 |
+| Sahil   | 15 | Pune    |    90 |     123 |
+| Prakash | 16 | Delhi   |    88 |     123 |
+| Cathy   | 17 | Chennai |    89 |     123 |
++---------+----+---------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> alter table student drop column phoneNo;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| Raj     | 12 | hyd     |    78 |
+| Dolly   | 13 | bng     |    88 |
+| Kodi    | 14 | Mumbai  |    94 |
+| Sahil   | 15 | Pune    |    90 |
+| Prakash | 16 | Delhi   |    88 |
+| Cathy   | 17 | Chennai |    89 |
++---------+----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql>
