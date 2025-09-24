@@ -1,0 +1,359 @@
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 21
+Server version: 8.0.43 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| nit                |
+| performance_schema |
+| sys                |
+| testdb             |
++--------------------+
+6 rows in set (0.01 sec)
+
+mysql> sedc students;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sedc students' at line 1
+mysql> desc students;
+ERROR 1046 (3D000): No database selected
+mysql> use nit;
+Database changed
+mysql> desc students;
+ERROR 1146 (42S02): Table 'nit.students' doesn't exist
+mysql> select * from student;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| Raj     | 12 | hyd     |    78 |
+| Dolly   | 13 | bng     |    88 |
+| Kodi    | 14 | Mumbai  |    94 |
+| Sahil   | 15 | Pune    |    90 |
+| Prakash | 16 | Delhi   |    88 |
+| Cathy   | 17 | Chennai |    89 |
++---------+----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> desc student;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| name    | varchar(60)  | YES  |     | NULL    |       |
+| id      | int          | NO   | PRI | NULL    |       |
+| address | varchar(100) | YES  |     | NULL    |       |
+| marks   | int          | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select sum(marks) from student;
++------------+
+| sum(marks) |
++------------+
+|        527 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> select avg(marks) from student;
++------------+
+| avg(marks) |
++------------+
+|    87.8333 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> delete from student where name = 'Kodi';
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from student;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| Raj     | 12 | hyd     |    78 |
+| Dolly   | 13 | bng     |    88 |
+| Sahil   | 15 | Pune    |    90 |
+| Prakash | 16 | Delhi   |    88 |
+| Cathy   | 17 | Chennai |    89 |
++---------+----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select count(name) from student;
++-------------+
+| count(name) |
++-------------+
+|           5 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(marks) from student;
++------------+
+| max(marks) |
++------------+
+|         90 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select min(marks) from student;
++------------+
+| min(marks) |
++------------+
+|         78 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select * from student order by marks;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| Raj     | 12 | hyd     |    78 |
+| Dolly   | 13 | bng     |    88 |
+| Prakash | 16 | Delhi   |    88 |
+| Cathy   | 17 | Chennai |    89 |
+| Sahil   | 15 | Pune    |    90 |
++---------+----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student order by marks desc;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| Sahil   | 15 | Pune    |    90 |
+| Cathy   | 17 | Chennai |    89 |
+| Dolly   | 13 | bng     |    88 |
+| Prakash | 16 | Delhi   |    88 |
+| Raj     | 12 | hyd     |    78 |
++---------+----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student where name like 'a%';
+Empty set (0.00 sec)
+
+mysql> select * from student where name like 'r%';
++------+----+---------+-------+
+| name | id | address | marks |
++------+----+---------+-------+
+| Raj  | 12 | hyd     |    78 |
++------+----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where name like '%y';
++-------+----+---------+-------+
+| name  | id | address | marks |
++-------+----+---------+-------+
+| Dolly | 13 | bng     |    88 |
+| Cathy | 17 | Chennai |    89 |
++-------+----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student where name like 's%';
++-------+----+---------+-------+
+| name  | id | address | marks |
++-------+----+---------+-------+
+| Sahil | 15 | Pune    |    90 |
++-------+----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| Raj     | 12 | hyd     |    78 |
+| Dolly   | 13 | bng     |    88 |
+| Sahil   | 15 | Pune    |    90 |
+| Prakash | 16 | Delhi   |    88 |
+| Cathy   | 17 | Chennai |    89 |
++---------+----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student where name like '_a%';
++-------+----+---------+-------+
+| name  | id | address | marks |
++-------+----+---------+-------+
+| Raj   | 12 | hyd     |    78 |
+| Sahil | 15 | Pune    |    90 |
+| Cathy | 17 | Chennai |    89 |
++-------+----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student where name like 's_%';
++-------+----+---------+-------+
+| name  | id | address | marks |
++-------+----+---------+-------+
+| Sahil | 15 | Pune    |    90 |
++-------+----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where name like 'l_%';
+Empty set (0.00 sec)
+
+mysql> create table emp(id int not null primary key,salary int, empcode int, name varchar(30));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> insert into emp values(12, 20000,102,'aman'),(23, 60000,104,'arup'),(78,30000,105,'max'),
+    -> (80, 35000,103,'ram'),(34,90000,106,'sam');
+Query OK, 5 rows affected (0.02 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++----+--------+---------+------+
+| id | salary | empcode | name |
++----+--------+---------+------+
+| 12 |  20000 |     102 | aman |
+| 23 |  60000 |     104 | arup |
+| 34 |  90000 |     106 | sam  |
+| 78 |  30000 |     105 | max  |
+| 80 |  35000 |     103 | ram  |
++----+--------+---------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| Raj     | 12 | hyd     |    78 |
+| Dolly   | 13 | bng     |    88 |
+| Sahil   | 15 | Pune    |    90 |
+| Prakash | 16 | Delhi   |    88 |
+| Cathy   | 17 | Chennai |    89 |
++---------+----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student inner join emp on student.id;
++---------+----+---------+-------+----+--------+---------+------+
+| name    | id | address | marks | id | salary | empcode | name |
++---------+----+---------+-------+----+--------+---------+------+
+| Cathy   | 17 | Chennai |    89 | 12 |  20000 |     102 | aman |
+| Prakash | 16 | Delhi   |    88 | 12 |  20000 |     102 | aman |
+| Sahil   | 15 | Pune    |    90 | 12 |  20000 |     102 | aman |
+| Dolly   | 13 | bng     |    88 | 12 |  20000 |     102 | aman |
+| Raj     | 12 | hyd     |    78 | 12 |  20000 |     102 | aman |
+| Cathy   | 17 | Chennai |    89 | 23 |  60000 |     104 | arup |
+| Prakash | 16 | Delhi   |    88 | 23 |  60000 |     104 | arup |
+| Sahil   | 15 | Pune    |    90 | 23 |  60000 |     104 | arup |
+| Dolly   | 13 | bng     |    88 | 23 |  60000 |     104 | arup |
+| Raj     | 12 | hyd     |    78 | 23 |  60000 |     104 | arup |
+| Cathy   | 17 | Chennai |    89 | 34 |  90000 |     106 | sam  |
+| Prakash | 16 | Delhi   |    88 | 34 |  90000 |     106 | sam  |
+| Sahil   | 15 | Pune    |    90 | 34 |  90000 |     106 | sam  |
+| Dolly   | 13 | bng     |    88 | 34 |  90000 |     106 | sam  |
+| Raj     | 12 | hyd     |    78 | 34 |  90000 |     106 | sam  |
+| Cathy   | 17 | Chennai |    89 | 78 |  30000 |     105 | max  |
+| Prakash | 16 | Delhi   |    88 | 78 |  30000 |     105 | max  |
+| Sahil   | 15 | Pune    |    90 | 78 |  30000 |     105 | max  |
+| Dolly   | 13 | bng     |    88 | 78 |  30000 |     105 | max  |
+| Raj     | 12 | hyd     |    78 | 78 |  30000 |     105 | max  |
+| Cathy   | 17 | Chennai |    89 | 80 |  35000 |     103 | ram  |
+| Prakash | 16 | Delhi   |    88 | 80 |  35000 |     103 | ram  |
+| Sahil   | 15 | Pune    |    90 | 80 |  35000 |     103 | ram  |
+| Dolly   | 13 | bng     |    88 | 80 |  35000 |     103 | ram  |
+| Raj     | 12 | hyd     |    78 | 80 |  35000 |     103 | ram  |
++---------+----+---------+-------+----+--------+---------+------+
+25 rows in set (0.00 sec)
+
+mysql> select * from student inner join emp on student.id = emp.id;
++------+----+---------+-------+----+--------+---------+------+
+| name | id | address | marks | id | salary | empcode | name |
++------+----+---------+-------+----+--------+---------+------+
+| Raj  | 12 | hyd     |    78 | 12 |  20000 |     102 | aman |
++------+----+---------+-------+----+--------+---------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp inner join student on emp.id = student.id;
++----+--------+---------+------+------+----+---------+-------+
+| id | salary | empcode | name | name | id | address | marks |
++----+--------+---------+------+------+----+---------+-------+
+| 12 |  20000 |     102 | aman | Raj  | 12 | hyd     |    78 |
++----+--------+---------+------+------+----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from student;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| Raj     | 12 | hyd     |    78 |
+| Dolly   | 13 | bng     |    88 |
+| Sahil   | 15 | Pune    |    90 |
+| Prakash | 16 | Delhi   |    88 |
+| Cathy   | 17 | Chennai |    89 |
++---------+----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from emp;
++----+--------+---------+------+
+| id | salary | empcode | name |
++----+--------+---------+------+
+| 12 |  20000 |     102 | aman |
+| 23 |  60000 |     104 | arup |
+| 34 |  90000 |     106 | sam  |
+| 78 |  30000 |     105 | max  |
+| 80 |  35000 |     103 | ram  |
++----+--------+---------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student left join emp on student.id = emp.id;
++---------+----+---------+-------+------+--------+---------+------+
+| name    | id | address | marks | id   | salary | empcode | name |
++---------+----+---------+-------+------+--------+---------+------+
+| Raj     | 12 | hyd     |    78 |   12 |  20000 |     102 | aman |
+| Dolly   | 13 | bng     |    88 | NULL |   NULL |    NULL | NULL |
+| Sahil   | 15 | Pune    |    90 | NULL |   NULL |    NULL | NULL |
+| Prakash | 16 | Delhi   |    88 | NULL |   NULL |    NULL | NULL |
+| Cathy   | 17 | Chennai |    89 | NULL |   NULL |    NULL | NULL |
++---------+----+---------+-------+------+--------+---------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student right join emp on student.id = emp.id;
++------+------+---------+-------+----+--------+---------+------+
+| name | id   | address | marks | id | salary | empcode | name |
++------+------+---------+-------+----+--------+---------+------+
+| Raj  |   12 | hyd     |    78 | 12 |  20000 |     102 | aman |
+| NULL | NULL | NULL    |  NULL | 23 |  60000 |     104 | arup |
+| NULL | NULL | NULL    |  NULL | 34 |  90000 |     106 | sam  |
+| NULL | NULL | NULL    |  NULL | 78 |  30000 |     105 | max  |
+| NULL | NULL | NULL    |  NULL | 80 |  35000 |     103 | ram  |
++------+------+---------+-------+----+--------+---------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student cross join emp;
++---------+----+---------+-------+----+--------+---------+------+
+| name    | id | address | marks | id | salary | empcode | name |
++---------+----+---------+-------+----+--------+---------+------+
+| Cathy   | 17 | Chennai |    89 | 12 |  20000 |     102 | aman |
+| Prakash | 16 | Delhi   |    88 | 12 |  20000 |     102 | aman |
+| Sahil   | 15 | Pune    |    90 | 12 |  20000 |     102 | aman |
+| Dolly   | 13 | bng     |    88 | 12 |  20000 |     102 | aman |
+| Raj     | 12 | hyd     |    78 | 12 |  20000 |     102 | aman |
+| Cathy   | 17 | Chennai |    89 | 23 |  60000 |     104 | arup |
+| Prakash | 16 | Delhi   |    88 | 23 |  60000 |     104 | arup |
+| Sahil   | 15 | Pune    |    90 | 23 |  60000 |     104 | arup |
+| Dolly   | 13 | bng     |    88 | 23 |  60000 |     104 | arup |
+| Raj     | 12 | hyd     |    78 | 23 |  60000 |     104 | arup |
+| Cathy   | 17 | Chennai |    89 | 34 |  90000 |     106 | sam  |
+| Prakash | 16 | Delhi   |    88 | 34 |  90000 |     106 | sam  |
+| Sahil   | 15 | Pune    |    90 | 34 |  90000 |     106 | sam  |
+| Dolly   | 13 | bng     |    88 | 34 |  90000 |     106 | sam  |
+| Raj     | 12 | hyd     |    78 | 34 |  90000 |     106 | sam  |
+| Cathy   | 17 | Chennai |    89 | 78 |  30000 |     105 | max  |
+| Prakash | 16 | Delhi   |    88 | 78 |  30000 |     105 | max  |
+| Sahil   | 15 | Pune    |    90 | 78 |  30000 |     105 | max  |
+| Dolly   | 13 | bng     |    88 | 78 |  30000 |     105 | max  |
+| Raj     | 12 | hyd     |    78 | 78 |  30000 |     105 | max  |
+| Cathy   | 17 | Chennai |    89 | 80 |  35000 |     103 | ram  |
+| Prakash | 16 | Delhi   |    88 | 80 |  35000 |     103 | ram  |
+| Sahil   | 15 | Pune    |    90 | 80 |  35000 |     103 | ram  |
+| Dolly   | 13 | bng     |    88 | 80 |  35000 |     103 | ram  |
+| Raj     | 12 | hyd     |    78 | 80 |  35000 |     103 | ram  |
++---------+----+---------+-------+----+--------+---------+------+
+25 rows in set (0.00 sec)
+
+mysql>
